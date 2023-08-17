@@ -25,7 +25,7 @@ enum TypeActioinsType {
 
 type AddTodoCreatorType = ActionConstructor<
   TypeActioinsType.typeActionAddTodo,
-  TodoType
+  TodoType[]
 >;
 type DelTodoCreatorType = ActionConstructor<
   TypeActioinsType.typeActionDelTodo,
@@ -54,8 +54,9 @@ const initialState: State = {
 function TodosReducer(state: State = initialState, action: ActioType): State {
   switch (action.type) {
     case TypeActioinsType.typeActionAddTodo: {
-      state.todos.push(action.payload);
-      return { ...state };
+      // const todos = state.todos;
+      const newTodos = state.todos.concat(action.payload);
+      return { ...state, todos: newTodos };
     }
     case TypeActioinsType.typeActionDelTodo: {
       const newTodos = state.todos.filter((todo) => todo.id !== action.payload);
@@ -79,7 +80,7 @@ function TodosReducer(state: State = initialState, action: ActioType): State {
   }
 }
 
-export const addTodoCreator = (todo: TodoType): AddTodoCreatorType => ({
+export const addTodoCreator = (todo: TodoType[]): AddTodoCreatorType => ({
   type: TypeActioinsType.typeActionAddTodo,
   payload: todo,
 });

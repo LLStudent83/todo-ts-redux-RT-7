@@ -18,11 +18,13 @@ function AddTodo(): JSX.Element {
 
     if (stateInput.trim().length > 0) {
       dispatch(
-        addTodoCreator({
-          id: nanoid(),
-          completed: false,
-          title: stateInput,
-        })
+        addTodoCreator([
+          {
+            id: nanoid(),
+            completed: false,
+            title: stateInput,
+          },
+        ])
       );
       setStateInput("");
     }

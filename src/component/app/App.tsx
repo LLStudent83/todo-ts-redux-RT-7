@@ -1,18 +1,20 @@
 import * as React from "react";
 import type { TodoType } from "../../store/todoReducer";
+import { addTodoCreator } from "../../store/todoReducer";
 import TodoList from "../todoList/TodoList";
 import AddTodo from "../addTodo/AddTodo";
 import FilterTodo from "../filterTodo/FilterTodo";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import { useDispatch } from "react-redux";
 import "./app.scss";
 import getTodos from "../../utils/getTodos";
 
 export type FilterType = "all" | "unComplete" | "complete";
 
 function App(): JSX.Element {
-  const initialTodos: TodoType[] = [];
+  const dispatch = useDispatch();
 
-  // const [] = useLocalStorage<TodoType[]>("todos", initialTodos);
+  const todos = getTodos(100);
+  dispatch(addTodoCreator(todos));
 
   getTodos(10);
   return (
@@ -27,3 +29,5 @@ function App(): JSX.Element {
 
 export default App;
 export type { TodoType };
+
+// нужно написать что бы добавлялось только 100 задач без useEffect
