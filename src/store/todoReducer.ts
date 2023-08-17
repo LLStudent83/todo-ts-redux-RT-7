@@ -4,7 +4,6 @@ export type TodoType = {
   id: string;
   completed: boolean;
   title: string;
-  visible: boolean;
 };
 
 type ActionConstructor<a, b> = {

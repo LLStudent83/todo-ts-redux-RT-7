@@ -22,7 +22,6 @@ function AddTodo(): JSX.Element {
           id: nanoid(),
           completed: false,
           title: stateInput,
-          visible: true,
         })
       );
       setStateInput("");
