@@ -11,7 +11,7 @@ type Props = {
 };
 
 function TodoItem({ todo, index }: Props): JSX.Element {
-  //111111111111111111111
+  // следующий коммит после отката
   const dispatch = useAppDispatch();
   console.log("mount TodoItem");
   const classes = ["todoItem__todoTitle"];
