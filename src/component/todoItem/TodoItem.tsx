@@ -11,6 +11,8 @@ type Props = {
 };
 
 function TodoItem({ todo, index }: Props): JSX.Element {
+  const str = "изменения 1";
+
   const dispatch = useAppDispatch();
   console.log("mount TodoItem");
   const classes = ["todoItem__todoTitle"];
