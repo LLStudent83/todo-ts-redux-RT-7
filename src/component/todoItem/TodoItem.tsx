@@ -11,6 +11,8 @@ type Props = {
 };
 
 function TodoItem({ todo, index }: Props): JSX.Element {
+  console.log("render TodoItem", todo.title);
+
   const dispatch = useAppDispatch();
   const classes = ["todoItem__todoTitle"];
   if (todo.completed) {

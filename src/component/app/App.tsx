@@ -11,12 +11,13 @@ import getTodos from "../../utils/getTodos";
 export type FilterType = "all" | "unComplete" | "complete";
 
 function App(): JSX.Element {
+  console.log("Ререндер App");
   const dispatch = useDispatch();
 
-  const todos = getTodos(100);
+  const todos = getTodos(5);
   dispatch(addTodoCreator(todos));
 
-  getTodos(10);
+  // getTodos(10);
   return (
     <div className="wrapper">
       <h1>Список задач</h1>

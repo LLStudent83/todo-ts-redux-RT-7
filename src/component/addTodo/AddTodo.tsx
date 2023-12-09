@@ -6,6 +6,7 @@ import { addTodoCreator } from "../../store/todoReducer";
 import { nanoid } from "nanoid";
 
 function AddTodo(): JSX.Element {
+  console.log("Ререндер AddTodo");
   const [stateInput, setStateInput] = useState("");
   const dispatch = useDispatch();
 

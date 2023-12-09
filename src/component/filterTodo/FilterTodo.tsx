@@ -6,6 +6,7 @@ import "./filterTodo.scss";
 import type { FilterType } from "../app/App";
 
 export default function FilterTodo(): JSX.Element {
+  console.log("rerender FilterTodo");
   const dispatch = useAppDispatch();
   const { activeFilter } = useAppSelector((state) => state.todos);
 
