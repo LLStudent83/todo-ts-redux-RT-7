@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { TodoType } from "../../store/todoReducer";
 import { addTodoCreator } from "../../store/todoReducer";
+import TableToDo from "../tableToDo/TableToDo";
 import TodoList from "../todoList/TodoList";
 import AddTodo from "../addTodo/AddTodo";
 import FilterTodo from "../filterTodo/FilterTodo";
@@ -14,7 +15,7 @@ function App(): JSX.Element {
   console.log("Ререндер App");
   const dispatch = useDispatch();
 
-  const todos = getTodos(5);
+  const todos = getTodos(5000);
   dispatch(addTodoCreator(todos));
 
   // getTodos(10);
@@ -23,7 +24,10 @@ function App(): JSX.Element {
       <h1>Список задач</h1>
       <AddTodo />
       <FilterTodo />
-      <TodoList />
+      {/* <TodoList /> */}
+      <section className="table-wrapper">
+        <TableToDo />
+      </section>
     </div>
   );
 }
