@@ -34,5 +34,3 @@ function App(): JSX.Element {
 
 export default App;
 export type { TodoType };
-
-// нужно написать что бы добавлялось только 100 задач без useEffect

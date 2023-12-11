@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useTable } from "react-table";
 import { useAppSelector, useAppDispatch } from "../../store/reduxHooks";
 import { toDoCompletedCreator, delTodoCreator } from "../../store/todoReducer";
+import { FixedSizeList } from "react-window";
 
 export default function TableToDo() {
   const { todos, activeFilter } = useAppSelector((state) => state.todos);
