@@ -7,7 +7,9 @@ import { TodoType } from "../../store/todoReducer";
 import "./todoList.scss";
 
 function TodoList(): JSX.Element {
-  const { todos, activeFilter } = useAppSelector((state) => state.todos);
+  const { todos } = useAppSelector((state) => state.todos);
+  const { activeFilter } = useAppSelector((state) => state.todos);
+
   console.log("Ререндер TodoList");
 
   // const visibleTodos: Array<TodoType> = todos.filter((todo) => todo.visible);

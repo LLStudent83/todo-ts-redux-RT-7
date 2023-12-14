@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { toDoCompletedCreator, delTodoCreator } from "../../store/todoReducer";
 import { useAppDispatch } from "../../store/reduxHooks";
 import { TodoType } from "../app/App";
@@ -10,7 +11,25 @@ type Props = {
   index: number;
 };
 
-function TodoItem({ todo, index }: Props): JSX.Element {
+function toEquile(prev: Props, state: Props) {
+  const prevkeys = Object.keys(prev);
+  const keys = Object.keys(state);
+  if (prevkeys.length !== keys.length) return false;
+
+  for (let key in prev) {
+    if (typeof key !== "object") {
+      if (prev[key] !== state[key]) return false;
+    } else {
+      toEquile(prev[key], state[key]);
+    }
+    return true;
+  }
+
+  return prev === state;
+}
+
+function TodoItem(props: Props): JSX.Element {
+  const { todo, index } = props;
   console.log("render TodoItem", todo.title);
 
   const dispatch = useAppDispatch();
@@ -57,4 +76,5 @@ function TodoItem({ todo, index }: Props): JSX.Element {
   );
 }
 
-export default TodoItem;
+export default React.memo(TodoItem, toEquile);
+// export default TodoItem;
