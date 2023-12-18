@@ -2,10 +2,12 @@ import React, { useMemo } from "react";
 import { useTable } from "react-table";
 import { useAppSelector, useAppDispatch } from "../../store/reduxHooks";
 import { toDoCompletedCreator, delTodoCreator } from "../../store/todoReducer";
-import { FixedSizeList } from "react-window";
+import { VariableSizeList } from "react-window";
 
 export default function TableToDo() {
-  const { todos, activeFilter } = useAppSelector((state) => state.todos);
+  const todos = useAppSelector((state) => state.todos.todos);
+  const activeFilter = useAppSelector((state) => state.todos.activeFilter);
+
   const dispatch = useAppDispatch();
 
   const visibleTodos = useMemo(() => {
@@ -83,13 +85,21 @@ export default function TableToDo() {
         },
       },
     ],
-    []
+    [dispatch]
   );
 
   const tableInstance = useTable({ columns: columns, data: visibleTodos });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
+
+  const rowData = useMemo(() => {
+    console.log("сработал useMemo");
+    return {
+      rows,
+      prepareRow,
+    };
+  }, [prepareRow, rows]);
 
   return (
     <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
@@ -113,7 +123,21 @@ export default function TableToDo() {
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
+        <VariableSizeList
+          height={500}
+          itemCount={rows.length}
+          itemSize={50}
+          itemSize={() => 50}
+          width={tableInstance.totalColumnsWidth}
+          // width={useFullWidth ? '100%' : instance.totalColumnsWidth}
+          // style={{ overflowX: 'hidden', overflowY: 'overlay' }}
+          // ref={listRef}
+          itemData={rowData}
+        >
+          {createRowMemo}
+        </VariableSizeList>
+
+        {/* {rows.map((row) => {
           prepareRow(row);
           return (
             <tr {...row.getRowProps()}>
@@ -133,8 +157,35 @@ export default function TableToDo() {
               })}
             </tr>
           );
-        })}
+        })} */}
       </tbody>
     </table>
   );
 }
+
+const createRowMemo = React.memo((props) => {
+  const { data, index, style } = props;
+  const { top, height, position } = style;
+  const { rows, prepareRow } = data;
+  const row = rows[index];
+
+  prepareRow(row);
+  return (
+    <tr {...row.getRowProps({ style: { top, height, position } })}>
+      {row.cells.map((cell) => {
+        return (
+          <td
+            {...cell.getCellProps()}
+            style={{
+              padding: "10px",
+              border: "solid 1px gray",
+              background: "papayawhip",
+            }}
+          >
+            {cell.render("Cell")}
+          </td>
+        );
+      })}
+    </tr>
+  );
+});
