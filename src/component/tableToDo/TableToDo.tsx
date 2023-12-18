@@ -3,6 +3,7 @@ import { useTable } from "react-table";
 import { useAppSelector, useAppDispatch } from "../../store/reduxHooks";
 import { toDoCompletedCreator, delTodoCreator } from "../../store/todoReducer";
 import { VariableSizeList } from "react-window";
+import areEqualTableRowData from "./areEqualTableRowData";
 
 export default function TableToDo() {
   const todos = useAppSelector((state) => state.todos.todos);
@@ -34,7 +35,7 @@ export default function TableToDo() {
       {
         Header: "Статус",
         Cell: (prop) => {
-          console.log(prop);
+          // console.log(prop);
           const { value, data, row } = prop;
 
           const toDoCompleted = (toDoId: string) => {
@@ -136,28 +137,6 @@ export default function TableToDo() {
         >
           {createRowMemo}
         </VariableSizeList>
-
-        {/* {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return (
-                  <td
-                    {...cell.getCellProps()}
-                    style={{
-                      padding: "10px",
-                      border: "solid 1px gray",
-                      background: "papayawhip",
-                    }}
-                  >
-                    {cell.render("Cell")}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })} */}
       </tbody>
     </table>
   );
@@ -188,4 +167,4 @@ const createRowMemo = React.memo((props) => {
       })}
     </tr>
   );
-});
+}, areEqualTableRowData);
