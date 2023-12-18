@@ -8,28 +8,25 @@ import "./todoItem.scss";
 
 type Props = {
   todo: TodoType;
-  index: number;
 };
 
-function toEquile(prev: Props, state: Props) {
-  const prevkeys = Object.keys(prev);
-  const keys = Object.keys(state);
-  if (prevkeys.length !== keys.length) return false;
-
-  for (let key in prev) {
-    if (typeof key !== "object") {
-      if (prev[key] !== state[key]) return false;
-    } else {
-      toEquile(prev[key], state[key]);
+function toEquileV2(prevProps: Props, nextProps: Props) {
+  for (let prevKey in prevProps) {
+    if (!(prevKey in nextProps)) {
+      return false;
     }
-    return true;
   }
 
-  return prev === state;
+  for (let prevKey in prevProps) {
+    if (prevProps[prevKey] !== nextProps[prevKey]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function TodoItem(props: Props): JSX.Element {
-  const { todo, index } = props;
+  const { todo } = props;
   console.log("render TodoItem", todo.title);
 
   const dispatch = useAppDispatch();
@@ -62,7 +59,7 @@ function TodoItem(props: Props): JSX.Element {
         checked={todo.completed}
         onChange={() => onChange(todo.id)}
       />
-      <div className="todoItem__serialТumber">{index + 1}</div>
+      <div className="todoItem__serialТumber">{0}</div>
       <div className={classes.join(" ")}>{todo.title}</div>
 
       <button
@@ -76,5 +73,5 @@ function TodoItem(props: Props): JSX.Element {
   );
 }
 
-export default React.memo(TodoItem, toEquile);
+export default React.memo(TodoItem, toEquileV2);
 // export default TodoItem;
