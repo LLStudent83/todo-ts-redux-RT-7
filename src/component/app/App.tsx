@@ -2,7 +2,6 @@ import * as React from "react";
 import type { TodoType } from "../../store/todoReducer";
 import { addTodoCreator } from "../../store/todoReducer";
 import TableToDo from "../tableToDo/TableToDo";
-import TodoList from "../todoList/TodoList";
 import AddTodo from "../addTodo/AddTodo";
 import FilterTodo from "../filterTodo/FilterTodo";
 import { useDispatch } from "react-redux";
@@ -24,7 +23,6 @@ function App(): JSX.Element {
       <h1>Список задач</h1>
       <AddTodo />
       <FilterTodo />
-      {/* <TodoList /> */}
       <section className="table-wrapper">
         <TableToDo />
       </section>
